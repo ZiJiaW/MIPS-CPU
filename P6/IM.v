@@ -22,11 +22,11 @@ module IM(
     input [31:0] Addr,
     output[31:0] Out
     );
-	 reg [31:0] _im[2047:0];
-	 initial begin
-		 $readmemh("code.txt",_im);
-	 end
-	 wire [31:0]pc;
-	 assign pc = Addr-32'h00003000;
+     reg [31:0] _im[2047:0];
+     initial begin
+         $readmemh("code.txt",_im);
+     end
+     wire [31:0]pc;
+     assign pc = Addr-32'h00003000;
     assign Out = _im[pc[12:2]];
 endmodule

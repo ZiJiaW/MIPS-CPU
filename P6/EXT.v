@@ -25,9 +25,9 @@ module EXT(
     );
 always @(*) begin
     case(ExtSrc)
-	     2'b00: if(immediate[15]) IME={16'hffff,immediate};else IME={16'h0000,immediate};//signed exetend
-		  2'b01: IME={16'h0000,immediate};//zero exetend
-		  2'b10: IME={immediate,16'h0000};//lui
-	 endcase
+         2'b00: if(immediate[15]) IME={16'hffff,immediate};else IME={16'h0000,immediate};//signed exetend
+          2'b01: IME={16'h0000,immediate};//zero exetend
+          2'b10: IME={immediate,16'h0000};//lui
+     endcase
 end
 endmodule

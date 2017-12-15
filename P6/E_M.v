@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module E_M(
     input clk,
-	 input reset,
+     input reset,
     input [31:0] INSTR,
     input [31:0] PC4,
     input [31:0] ALUOUT,
@@ -37,26 +37,26 @@ reg [31:0] rt;
 
 initial begin
     ir<=0;
-	 pc4<=0;
-	 ao<=0;
-	 rt<=0;
+     pc4<=0;
+     ao<=0;
+     rt<=0;
 
 end
 always@(posedge clk)begin
     if(reset)begin
         ir<=0;
-	     pc4<=0;
-	     ao<=0;
-	     rt<=0;
+         pc4<=0;
+         ao<=0;
+         rt<=0;
 
     end
     else begin
         ir<= INSTR;
         pc4<= PC4;
-	     ao<= ALUOUT;
-	     rt<= RT_E;
+         ao<= ALUOUT;
+         rt<= RT_E;
 
-	 end
+     end
 end
 assign IR_M=ir;
 assign PC4_M=pc4;

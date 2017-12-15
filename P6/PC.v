@@ -21,7 +21,7 @@
 module PC(
     input clk,
     input reset,
-	 input EN,
+     input EN,
     input [31:0] NPC,
     output [31:0] PC
     );
@@ -31,9 +31,9 @@ initial begin
 end
 always @(posedge clk)begin
     if(reset)
-	     _pc<=32'h00003000;
-	 else if(EN)
-	     _pc <= NPC;
+         _pc<=32'h00003000;
+     else if(EN)
+         _pc <= NPC;
 end
 assign PC = _pc;
 endmodule

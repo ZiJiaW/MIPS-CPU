@@ -28,15 +28,15 @@ module FUNCTION_CONTROL(
     output [1:0] ExtSrc,
     output reg[3:0] ALUOp,
     output ALU_BSel,
-	 output [1:0]AO_Sel,
+     output [1:0]AO_Sel,
     output MemWrite,
     output [1:0]RF_A3Sel,
     output [1:0]RF_WDSel,
     output RegWrite,
-	 output start_mult,
-	 output we_hi,
-	 output we_lo,
-	 output [1:0] md_op
+     output start_mult,
+     output we_hi,
+     output we_lo,
+     output [1:0] md_op
     );
 `define calr 6'b000000
 `define addu 6'b100001
@@ -91,8 +91,8 @@ module FUNCTION_CONTROL(
 `define funct_mtlo 6'b010011
 assign JOP = IR_D[31:26]==`j|
              IR_D[31:26]==`jal|
-				 (IR_D[31:26]==`calr&IR_D[5:0]==`funct_jr)|
-				 (IR_D[31:26]==`calr&IR_D[5:0]==`funct_jalr);// j jal jr jalr
+                 (IR_D[31:26]==`calr&IR_D[5:0]==`funct_jr)|
+                 (IR_D[31:26]==`calr&IR_D[5:0]==`funct_jalr);// j jal jr jalr
 assign branch[0] = IR_D[31:26]== `beq;//  beq
 assign branch[1] = IR_D[31:26]== `bne;//  bne
 assign branch[2] = IR_D[31:26]== `blez;
@@ -101,103 +101,103 @@ assign branch[4] = IR_D[31:26]== (`bltz_bgez)&(IR_D[16]==0);//bltz
 assign branch[5] = IR_D[31:26]== (`bltz_bgez)&(IR_D[16]==1);//bgez
 assign ExtSrc = IR_D[31:26]==`ori?2'b01:
                 IR_D[31:26]==`xori?2'b01:
-					 IR_D[31:26]==`andi?2'b01:// zero ext
+                     IR_D[31:26]==`andi?2'b01:// zero ext
                 IR_D[31:26]==`lui?2'b10:2'b00; // lui and signed ext
 always @(*)begin
     case(IR_E[31:26])
-	     `calr: ALUOp = IR_E[5:0]==`addu?4'b0000:
-							  IR_E[5:0]==`funct_add?4'b0000:
-							  IR_E[5:0]==`subu?4'b0001:
-							  IR_E[5:0]==`funct_sub?4'b0001:
-							  IR_E[5:0]==`funct_or?4'b0010:
-							  IR_E[5:0]==`funct_and?4'b0011:
-							  IR_E[5:0]==`funct_xor?4'b0100:
-							  IR_E[5:0]==`funct_sll?4'b0101:
-							  IR_E[5:0]==`funct_srl?4'b0110:
-							  IR_E[5:0]==`funct_nor?4'b1011:
-							  IR_E[5:0]==`funct_slt?4'b1100:
-							  IR_E[5:0]==`funct_sltu?4'b1101:
-							  IR_E[5:0]==`funct_sra?4'b0111:
-							  IR_E[5:0]==`funct_sllv?4'b1000:
-							  IR_E[5:0]==`funct_srlv?4'b1001:
-							  IR_E[5:0]==`funct_srav?4'b1010:0;
-		  `ori: ALUOp = 4'b0010;
-		  `addi:ALUOp = 4'b0000;
-		  `addiu:ALUOp = 4'b0000;
-		  `lui:ALUOp = 4'b0000;
-		  `andi:ALUOp = 4'b0011;
-		  `xori:ALUOp = 4'b0100;
-		  `slti:ALUOp = 4'b1100;
-		  `sltiu:ALUOp = 4'b1101;
-		  default: ALUOp = 0;
-	 endcase
+         `calr: ALUOp = IR_E[5:0]==`addu?4'b0000:
+                              IR_E[5:0]==`funct_add?4'b0000:
+                              IR_E[5:0]==`subu?4'b0001:
+                              IR_E[5:0]==`funct_sub?4'b0001:
+                              IR_E[5:0]==`funct_or?4'b0010:
+                              IR_E[5:0]==`funct_and?4'b0011:
+                              IR_E[5:0]==`funct_xor?4'b0100:
+                              IR_E[5:0]==`funct_sll?4'b0101:
+                              IR_E[5:0]==`funct_srl?4'b0110:
+                              IR_E[5:0]==`funct_nor?4'b1011:
+                              IR_E[5:0]==`funct_slt?4'b1100:
+                              IR_E[5:0]==`funct_sltu?4'b1101:
+                              IR_E[5:0]==`funct_sra?4'b0111:
+                              IR_E[5:0]==`funct_sllv?4'b1000:
+                              IR_E[5:0]==`funct_srlv?4'b1001:
+                              IR_E[5:0]==`funct_srav?4'b1010:0;
+          `ori: ALUOp = 4'b0010;
+          `addi:ALUOp = 4'b0000;
+          `addiu:ALUOp = 4'b0000;
+          `lui:ALUOp = 4'b0000;
+          `andi:ALUOp = 4'b0011;
+          `xori:ALUOp = 4'b0100;
+          `slti:ALUOp = 4'b1100;
+          `sltiu:ALUOp = 4'b1101;
+          default: ALUOp = 0;
+     endcase
 end
 assign ALU_BSel = IR_E[31:26]==`ori?1:
                   IR_E[31:26]==`lui?1:
-						IR_E[31:26]==`lw?1:
-						IR_E[31:26]==`sw?1:
-						IR_E[31:26]==`addi?1:
-						IR_E[31:26]==`addiu?1:
-						IR_E[31:26]==`andi?1:
-						IR_E[31:26]==`xori?1:
-						IR_E[31:26]==`slti?1:
-						IR_E[31:26]==`sltiu?1:
-						IR_E[31:26]==`lb?1:
-						IR_E[31:26]==`lbu?1:
-						IR_E[31:26]==`lh?1:
-						IR_E[31:26]==`lhu?1:
-						IR_E[31:26]==`sb?1:
-						IR_E[31:26]==`sh?1:0;       // cali or st or ld
+                        IR_E[31:26]==`lw?1:
+                        IR_E[31:26]==`sw?1:
+                        IR_E[31:26]==`addi?1:
+                        IR_E[31:26]==`addiu?1:
+                        IR_E[31:26]==`andi?1:
+                        IR_E[31:26]==`xori?1:
+                        IR_E[31:26]==`slti?1:
+                        IR_E[31:26]==`sltiu?1:
+                        IR_E[31:26]==`lb?1:
+                        IR_E[31:26]==`lbu?1:
+                        IR_E[31:26]==`lh?1:
+                        IR_E[31:26]==`lhu?1:
+                        IR_E[31:26]==`sb?1:
+                        IR_E[31:26]==`sh?1:0;       // cali or st or ld
 assign we_hi = IR_E[31:26]==`calr&IR_E[5:0]==`funct_mthi;
 assign we_lo = IR_E[31:26]==`calr&IR_E[5:0]==`funct_mtlo;
 assign start_mult = (IR_E[31:26]==`calr&IR_E[5:0]==`funct_mult)|
                     (IR_E[31:26]==`calr&IR_E[5:0]==`funct_div)|
-						  (IR_E[31:26]==`calr&IR_E[5:0]==`funct_multu)|
-						  (IR_E[31:26]==`calr&IR_E[5:0]==`funct_divu);
+                          (IR_E[31:26]==`calr&IR_E[5:0]==`funct_multu)|
+                          (IR_E[31:26]==`calr&IR_E[5:0]==`funct_divu);
 assign AO_Sel= IR_E[31:26]==`calr&IR_E[5:0]==`funct_mfhi?1:
                IR_E[31:26]==`calr&IR_E[5:0]==`funct_mflo?2:0; //  aluout select
 assign md_op = IR_E[31:26]==`calr&IR_E[5:0]==`funct_multu?0:
                IR_E[31:26]==`calr&IR_E[5:0]==`funct_mult?1:
-					IR_E[31:26]==`calr&IR_E[5:0]==`funct_divu?2:
-					IR_E[31:26]==`calr&IR_E[5:0]==`funct_div?3:0;
+                    IR_E[31:26]==`calr&IR_E[5:0]==`funct_divu?2:
+                    IR_E[31:26]==`calr&IR_E[5:0]==`funct_div?3:0;
 assign MemWrite = IR_M[31:26]==`sw|IR_M[31:26]==`sh|IR_M[31:26]==`sb;   //store
 assign RF_A3Sel = IR_W[31:26]==`ori?2'b01:
                   IR_W[31:26]==`lui?2'b01:
-						IR_W[31:26]==`lw?2'b01:
-						IR_W[31:26]==`addi?2'b01:
-						IR_W[31:26]==`addiu?2'b01:
-						IR_W[31:26]==`andi?2'b01:
-						IR_W[31:26]==`xori?2'b01:
-						IR_W[31:26]==`slti?2'b01:
-						IR_W[31:26]==`sltiu?2'b01:
-						IR_W[31:26]==`lb?2'b01:
-						IR_W[31:26]==`lbu?2'b01:
-						IR_W[31:26]==`lh?2'b01:
-						IR_W[31:26]==`lhu?2'b01:
-						IR_W[31:26]==`jal?2'b10:2'b00;   // RT 01   31 10  RD 00
+                        IR_W[31:26]==`lw?2'b01:
+                        IR_W[31:26]==`addi?2'b01:
+                        IR_W[31:26]==`addiu?2'b01:
+                        IR_W[31:26]==`andi?2'b01:
+                        IR_W[31:26]==`xori?2'b01:
+                        IR_W[31:26]==`slti?2'b01:
+                        IR_W[31:26]==`sltiu?2'b01:
+                        IR_W[31:26]==`lb?2'b01:
+                        IR_W[31:26]==`lbu?2'b01:
+                        IR_W[31:26]==`lh?2'b01:
+                        IR_W[31:26]==`lhu?2'b01:
+                        IR_W[31:26]==`jal?2'b10:2'b00;   // RT 01   31 10  RD 00
 assign RegWrite = IR_W[31:26]==`j?0:
                   IR_W[31:26]==`sw?0:
-						IR_W[31:26]==`beq?0:
-						IR_W[31:26]==`bne?0:
-						IR_W[31:0]==`nop?0:
-						IR_W[31:26]==`sb?0:
-						IR_W[31:26]==`sh?0:
-						IR_W[31:26]==`blez?0:
-						IR_W[31:26]==`bgtz?0:
-						IR_W[31:26]==`bltz_bgez?0:
-						(IR_W[31:26]==`calr&IR_W[5:0]==`funct_jr)?0:
-						(IR_W[31:26]==`calr&IR_W[5:0]==`funct_mult)?0:
-						(IR_W[31:26]==`calr&IR_W[5:0]==`funct_multu)?0:
-						(IR_W[31:26]==`calr&IR_W[5:0]==`funct_div)?0:
-						(IR_W[31:26]==`calr&IR_W[5:0]==`funct_divu)?0:
-						(IR_W[31:26]==`calr&IR_W[5:0]==`funct_mthi)?0:
-						(IR_W[31:26]==`calr&IR_W[5:0]==`funct_mtlo)?0:1;
-						
+                        IR_W[31:26]==`beq?0:
+                        IR_W[31:26]==`bne?0:
+                        IR_W[31:0]==`nop?0:
+                        IR_W[31:26]==`sb?0:
+                        IR_W[31:26]==`sh?0:
+                        IR_W[31:26]==`blez?0:
+                        IR_W[31:26]==`bgtz?0:
+                        IR_W[31:26]==`bltz_bgez?0:
+                        (IR_W[31:26]==`calr&IR_W[5:0]==`funct_jr)?0:
+                        (IR_W[31:26]==`calr&IR_W[5:0]==`funct_mult)?0:
+                        (IR_W[31:26]==`calr&IR_W[5:0]==`funct_multu)?0:
+                        (IR_W[31:26]==`calr&IR_W[5:0]==`funct_div)?0:
+                        (IR_W[31:26]==`calr&IR_W[5:0]==`funct_divu)?0:
+                        (IR_W[31:26]==`calr&IR_W[5:0]==`funct_mthi)?0:
+                        (IR_W[31:26]==`calr&IR_W[5:0]==`funct_mtlo)?0:1;
+                        
 assign RF_WDSel = IR_W[31:26]==`lw?1:
                   IR_W[31:26]==`lb?1:
-						IR_W[31:26]==`lh?1:
-						IR_W[31:26]==`lbu?1:
-						IR_W[31:26]==`lhu?1:
+                        IR_W[31:26]==`lh?1:
+                        IR_W[31:26]==`lbu?1:
+                        IR_W[31:26]==`lhu?1:
                   IR_W[31:26]==`jal?2:
-						(IR_W[31:26]==`calr&IR_W[5:0]==`funct_jalr)?2:0;//1: dm // 2 pc8 // 0 aluout
+                        (IR_W[31:26]==`calr&IR_W[5:0]==`funct_jalr)?2:0;//1: dm // 2 pc8 // 0 aluout
 endmodule

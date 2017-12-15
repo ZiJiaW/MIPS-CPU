@@ -33,19 +33,19 @@ integer i;
 reg [31:0]grf [31:0];
 initial begin
     for(i=0;i<32;i=i+1)
-	     grf[i]<=0;
+         grf[i]<=0;
 end
 always @(posedge clk)begin
     if(reset) begin
-	     for(i=0;i<32;i=i+1)
-	         grf[i]<=0;
-	 end
-	 else if(RegWrite) begin
-	     if(rd!=0)begin
-	         $display("$%d <= %h",rd,WData);
-	         grf[rd]<=WData;
-		  end
-	 end
+         for(i=0;i<32;i=i+1)
+             grf[i]<=0;
+     end
+     else if(RegWrite) begin
+         if(rd!=0)begin
+             $display("$%d <= %h",rd,WData);
+             grf[rd]<=WData;
+          end
+     end
 end
 assign READ1= rs==0?0:
               rs==rd&&RegWrite? WData: grf[rs];

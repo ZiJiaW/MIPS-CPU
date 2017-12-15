@@ -70,7 +70,7 @@ wire Jop;
 wire [5:0] branch;
 assign PCSel = Jop|(branch[0]&equal)|(branch[1]&~equal)|           // j jal jalr jr
                    (branch[2]&~greater)|(branch[3]&greater)|       // blez bgtz
-						 (branch[4]&~greater_or_equal)|(branch[5]&greater_or_equal);//bltz bgez
+                         (branch[4]&~greater_or_equal)|(branch[5]&greater_or_equal);//bltz bgez
 // D/E register
 wire [31:0] IR_E;
 wire [31:0] RS_E;

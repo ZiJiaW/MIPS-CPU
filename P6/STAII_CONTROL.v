@@ -22,8 +22,8 @@ module STAII_CONTROL(
     input [31:0] IR_D,
     input [31:0] IR_E,
     input [31:0] IR_M,
-	 input start,
-	 input busy,
+     input start,
+     input busy,
     output STALL
     );
 `define op 31:26
@@ -101,105 +101,105 @@ wire mult_d; // use mult_div or hi or lo
 assign beq_d = IR_D[`op]==`beq|IR_D[`op]==`bne|IR_D[`op]==`blez|IR_D[`op]==`bgtz|IR_D[`op]==`bltz_bgez;//branch
 assign calr_d = (IR_D[`op]==6'b000000)&((IR_D[`funct]==`addu)|//addu
                                         (IR_D[`funct]==`subu)|//subu
-													 (IR_D[`funct]==`funct_sll)|//sll
-													 (IR_D[`funct]==`funct_add)|//add
-													 (IR_D[`funct]==`funct_sub)|//sub
-													 (IR_D[`funct]==`funct_srl)|//srl
-													 (IR_D[`funct]==`funct_or)|//or
-													 (IR_D[`funct]==`funct_xor)|//xor
-													 (IR_D[`funct]==`funct_and)|//and
-													 (IR_D[`funct]==`funct_sra)|
-													 (IR_D[`funct]==`funct_sllv)|
-													 (IR_D[`funct]==`funct_srlv)|
-													 (IR_D[`funct]==`funct_srav)|
-													 (IR_D[`funct]==`funct_nor)|
-													 (IR_D[`funct]==`funct_slt)|
-													 (IR_D[`funct]==`funct_sltu)|
-													 (IR_D[`funct]==`funct_mult)|
-													 (IR_D[`funct]==`funct_multu)|
-													 (IR_D[`funct]==`funct_divu)|
-													 (IR_D[`funct]==`funct_div));
+                                                     (IR_D[`funct]==`funct_sll)|//sll
+                                                     (IR_D[`funct]==`funct_add)|//add
+                                                     (IR_D[`funct]==`funct_sub)|//sub
+                                                     (IR_D[`funct]==`funct_srl)|//srl
+                                                     (IR_D[`funct]==`funct_or)|//or
+                                                     (IR_D[`funct]==`funct_xor)|//xor
+                                                     (IR_D[`funct]==`funct_and)|//and
+                                                     (IR_D[`funct]==`funct_sra)|
+                                                     (IR_D[`funct]==`funct_sllv)|
+                                                     (IR_D[`funct]==`funct_srlv)|
+                                                     (IR_D[`funct]==`funct_srav)|
+                                                     (IR_D[`funct]==`funct_nor)|
+                                                     (IR_D[`funct]==`funct_slt)|
+                                                     (IR_D[`funct]==`funct_sltu)|
+                                                     (IR_D[`funct]==`funct_mult)|
+                                                     (IR_D[`funct]==`funct_multu)|
+                                                     (IR_D[`funct]==`funct_divu)|
+                                                     (IR_D[`funct]==`funct_div));
 assign cali_d = IR_D[`op]==`ori|//ori
                 IR_D[`op]==`lui|//lui
-					 IR_D[`op]==`addi|//addi
-					 IR_D[`op]==`addiu|
-					 IR_D[`op]==`andi|
-					 IR_D[`op]==`xori|
-					 IR_D[`op]==`slti|
-					 IR_D[`op]==`sltiu|
-					 (IR_D[`op]==`calr&IR_D[`funct]==`funct_mthi)|
-					 (IR_D[`op]==`calr&IR_D[`funct]==`funct_mtlo);
+                     IR_D[`op]==`addi|//addi
+                     IR_D[`op]==`addiu|
+                     IR_D[`op]==`andi|
+                     IR_D[`op]==`xori|
+                     IR_D[`op]==`slti|
+                     IR_D[`op]==`sltiu|
+                     (IR_D[`op]==`calr&IR_D[`funct]==`funct_mthi)|
+                     (IR_D[`op]==`calr&IR_D[`funct]==`funct_mtlo);
 assign lw_d = IR_D[`op]==`lw|
               IR_D[`op]==`lb|
-				  IR_D[`op]==`lbu|
-				  IR_D[`op]==`lh|
-				  IR_D[`op]==`lhu;
+                  IR_D[`op]==`lbu|
+                  IR_D[`op]==`lh|
+                  IR_D[`op]==`lhu;
 assign sw_d = IR_D[`op]==`sw|
               IR_D[`op]==`sb|
-				  IR_D[`op]==`sh;
+                  IR_D[`op]==`sh;
 assign jr_d = (IR_D[`op]==`calr&IR_D[`funct]==`funct_jr)|
               (IR_D[`op]==`calr&IR_D[`funct]==`funct_jalr);
 assign mult_d = (IR_D[`op]==6'b000000)&((IR_D[`funct]==`funct_mult)|
-													 (IR_D[`funct]==`funct_multu)|
-													 (IR_D[`funct]==`funct_divu)|
-													 (IR_D[`funct]==`funct_div)|
-													 (IR_D[`funct]==`funct_mfhi)|
-													 (IR_D[`funct]==`funct_mflo)|
-													 (IR_D[`funct]==`funct_mthi)|
-													 (IR_D[`funct]==`funct_mtlo));
+                                                     (IR_D[`funct]==`funct_multu)|
+                                                     (IR_D[`funct]==`funct_divu)|
+                                                     (IR_D[`funct]==`funct_div)|
+                                                     (IR_D[`funct]==`funct_mfhi)|
+                                                     (IR_D[`funct]==`funct_mflo)|
+                                                     (IR_D[`funct]==`funct_mthi)|
+                                                     (IR_D[`funct]==`funct_mtlo));
 wire calr_e;// write rd and t new = 1
 wire cali_e;// write rt and t new = 1
 wire lw_e;  // write rt and t new = 2
 assign calr_e = IR_E[31:0]!=`nop&(IR_E[`op]==`calr)&((IR_E[`funct]==`addu)|//addu
                                                      (IR_E[`funct]==`subu)|//subu
-													              (IR_E[`funct]==`funct_sll)|//sll
-													              (IR_E[`funct]==`funct_add)|//add
-													              (IR_E[`funct]==`funct_sub)|//sub
-													              (IR_E[`funct]==`funct_srl)|//srl
-													              (IR_E[`funct]==`funct_or)|//or
-													              (IR_E[`funct]==`funct_xor)|//xor
-													              (IR_E[`funct]==`funct_and)|
-																     (IR_E[`funct]==`funct_sra)|
-													              (IR_E[`funct]==`funct_sllv)|
-													              (IR_E[`funct]==`funct_srlv)|
-													              (IR_E[`funct]==`funct_srav)|
-													              (IR_E[`funct]==`funct_nor)|
-													              (IR_E[`funct]==`funct_slt)|
-													              (IR_E[`funct]==`funct_sltu)|
-																	  (IR_E[`funct]==`funct_mfhi)|
-																	  (IR_E[`funct]==`funct_mflo));
+                                                                  (IR_E[`funct]==`funct_sll)|//sll
+                                                                  (IR_E[`funct]==`funct_add)|//add
+                                                                  (IR_E[`funct]==`funct_sub)|//sub
+                                                                  (IR_E[`funct]==`funct_srl)|//srl
+                                                                  (IR_E[`funct]==`funct_or)|//or
+                                                                  (IR_E[`funct]==`funct_xor)|//xor
+                                                                  (IR_E[`funct]==`funct_and)|
+                                                                     (IR_E[`funct]==`funct_sra)|
+                                                                  (IR_E[`funct]==`funct_sllv)|
+                                                                  (IR_E[`funct]==`funct_srlv)|
+                                                                  (IR_E[`funct]==`funct_srav)|
+                                                                  (IR_E[`funct]==`funct_nor)|
+                                                                  (IR_E[`funct]==`funct_slt)|
+                                                                  (IR_E[`funct]==`funct_sltu)|
+                                                                      (IR_E[`funct]==`funct_mfhi)|
+                                                                      (IR_E[`funct]==`funct_mflo));
 assign cali_e = IR_E[`op]==`ori|
                 IR_E[`op]==`lui|
-					 IR_E[`op]==`addi|
-					 IR_E[`op]==`addiu|
-					 IR_E[`op]==`andi|
-					 IR_E[`op]==`xori|
-					 IR_E[`op]==`slti|
-					 IR_E[`op]==`sltiu;
+                     IR_E[`op]==`addi|
+                     IR_E[`op]==`addiu|
+                     IR_E[`op]==`andi|
+                     IR_E[`op]==`xori|
+                     IR_E[`op]==`slti|
+                     IR_E[`op]==`sltiu;
 assign lw_e = IR_E[`op]==`lw|
               IR_E[`op]==`lb|
-				  IR_E[`op]==`lbu|
-				  IR_E[`op]==`lh|
-				  IR_E[`op]==`lhu;
+                  IR_E[`op]==`lbu|
+                  IR_E[`op]==`lh|
+                  IR_E[`op]==`lhu;
 wire lw_m;
 assign lw_m = IR_M[`op]==`lw|
               IR_M[`op]==`lb|
-				  IR_M[`op]==`lbu|
-				  IR_M[`op]==`lh|
-				  IR_M[`op]==`lhu;
+                  IR_M[`op]==`lbu|
+                  IR_M[`op]==`lh|
+                  IR_M[`op]==`lhu;
 
 assign stall_beq = beq_d&((calr_e&(IR_E[`rd]==IR_D[`rs]|IR_E[`rd]==IR_D[`rt]))|
                           (cali_e&(IR_D[`rs]==IR_E[`rt]|IR_D[`rt]==IR_E[`rt]))|
-								  (lw_e&(IR_D[`rs]==IR_E[`rt]|IR_D[`rt]==IR_E[`rt]))|
-								  (lw_m&(IR_D[`rs]==IR_M[`rt]|IR_D[`rt]==IR_M[`rt])));
+                                  (lw_e&(IR_D[`rs]==IR_E[`rt]|IR_D[`rt]==IR_E[`rt]))|
+                                  (lw_m&(IR_D[`rs]==IR_M[`rt]|IR_D[`rt]==IR_M[`rt])));
 assign stall_calr = calr_d&(lw_e&(IR_D[`rs]==IR_E[`rt]|IR_D[`rt]==IR_E[`rt]));
 assign stall_cali = cali_d&lw_e&(IR_D[`rs]==IR_E[`rt]);
 assign stall_lw = lw_d&lw_e&(IR_D[`rs]==IR_E[`rt]);
 assign stall_sw = sw_d&lw_e&(IR_D[`rs]==IR_E[`rt]);
 assign stall_jr = jr_d&((calr_e&(IR_E[`rd]==IR_D[`rs]))|
                         (cali_e&(IR_D[`rs]==IR_E[`rt]))|
-							   (lw_e&(IR_D[`rs]==IR_E[`rt]))|
-								(lw_m&(IR_D[`rs]==IR_M[`rt])));
+                               (lw_e&(IR_D[`rs]==IR_E[`rt]))|
+                                (lw_m&(IR_D[`rs]==IR_M[`rt])));
 assign stall_mult = mult_d&(start|busy);
 assign STALL = stall_beq|stall_calr|stall_cali|stall_lw|stall_sw|stall_jr|stall_mult;
 endmodule

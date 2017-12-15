@@ -22,8 +22,8 @@ module CMP(
     input [31:0] D1,
     input [31:0] D2,
     output equal,
-	 output greater,
-	 output greater_or_equal
+     output greater,
+     output greater_or_equal
     );
 assign equal = (D1==D2);
 assign greater = (D1[31]==0)&(D1!=0);

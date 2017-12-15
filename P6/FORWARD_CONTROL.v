@@ -95,65 +95,65 @@ wire rt_m;
 //// assign work
 assign rs_d=IR_D[`op]==`beq|
             IR_D[`op]==`bne|
-				IR_D[`op]==`blez|
-				IR_D[`op]==`bgtz|
-				IR_D[`op]==`bltz_bgez|
-				(IR_D[`op]==`calr&IR_D[`funct]==`funct_jr)|
-				(IR_D[`op]==`calr&IR_D[`funct]==`funct_jalr);
+                IR_D[`op]==`blez|
+                IR_D[`op]==`bgtz|
+                IR_D[`op]==`bltz_bgez|
+                (IR_D[`op]==`calr&IR_D[`funct]==`funct_jr)|
+                (IR_D[`op]==`calr&IR_D[`funct]==`funct_jalr);
 assign rt_d=IR_D[`op]==`beq|IR_D[`op]==`bne;
 assign rs_e=(IR_E[`op]==`calr&(IR_E[`funct]==`funct_add|
                                IR_E[`funct]==`funct_addu|
-										 IR_E[`funct]==`funct_sub|
-										 IR_E[`funct]==`funct_subu|
-										 IR_E[`funct]==`funct_sllv|
-										 IR_E[`funct]==`funct_srlv|
-										 IR_E[`funct]==`funct_srav|
-										 IR_E[`funct]==`funct_and|
-										 IR_E[`funct]==`funct_or|
-										 IR_E[`funct]==`funct_xor|
-										 IR_E[`funct]==`funct_nor|
-										 IR_E[`funct]==`funct_slt|
-										 IR_E[`funct]==`funct_sltu|
-										 IR_E[`funct]==`funct_mult|
-										 IR_E[`funct]==`funct_multu|
-										 IR_E[`funct]==`funct_div|
-										 IR_E[`funct]==`funct_divu|
-										 IR_E[`funct]==`funct_mthi|
-										 IR_E[`funct]==`funct_mtlo))|IR_E[`op]==`addi|
-										                            IR_E[`op]==`addiu|
-																			 IR_E[`op]==`andi|
-																			 IR_E[`op]==`ori|
-																			 IR_E[`op]==`xori|
-																			 IR_E[`op]==`slti|
-																			 IR_E[`op]==`sltiu|
-																			 IR_E[`op]==`lw|
-																			 IR_E[`op]==`lb|
-																			 IR_E[`op]==`lbu|
-																			 IR_E[`op]==`lh|
-																			 IR_E[`op]==`lhu|
-																			 IR_E[`op]==`sw|
-																			 IR_E[`op]==`sb|
-																			 IR_E[`op]==`sh;
+                                         IR_E[`funct]==`funct_sub|
+                                         IR_E[`funct]==`funct_subu|
+                                         IR_E[`funct]==`funct_sllv|
+                                         IR_E[`funct]==`funct_srlv|
+                                         IR_E[`funct]==`funct_srav|
+                                         IR_E[`funct]==`funct_and|
+                                         IR_E[`funct]==`funct_or|
+                                         IR_E[`funct]==`funct_xor|
+                                         IR_E[`funct]==`funct_nor|
+                                         IR_E[`funct]==`funct_slt|
+                                         IR_E[`funct]==`funct_sltu|
+                                         IR_E[`funct]==`funct_mult|
+                                         IR_E[`funct]==`funct_multu|
+                                         IR_E[`funct]==`funct_div|
+                                         IR_E[`funct]==`funct_divu|
+                                         IR_E[`funct]==`funct_mthi|
+                                         IR_E[`funct]==`funct_mtlo))|IR_E[`op]==`addi|
+                                                                    IR_E[`op]==`addiu|
+                                                                             IR_E[`op]==`andi|
+                                                                             IR_E[`op]==`ori|
+                                                                             IR_E[`op]==`xori|
+                                                                             IR_E[`op]==`slti|
+                                                                             IR_E[`op]==`sltiu|
+                                                                             IR_E[`op]==`lw|
+                                                                             IR_E[`op]==`lb|
+                                                                             IR_E[`op]==`lbu|
+                                                                             IR_E[`op]==`lh|
+                                                                             IR_E[`op]==`lhu|
+                                                                             IR_E[`op]==`sw|
+                                                                             IR_E[`op]==`sb|
+                                                                             IR_E[`op]==`sh;
 assign rt_e=(IR_E[`op]==`calr&(IR_E[`funct]==`funct_add|
                                IR_E[`funct]==`funct_addu|
-										 IR_E[`funct]==`funct_sub|
-										 IR_E[`funct]==`funct_subu|
-										 IR_E[`funct]==`funct_sll|
-										 IR_E[`funct]==`funct_srl|
-										 IR_E[`funct]==`funct_sra|
-										 IR_E[`funct]==`funct_sllv|
-										 IR_E[`funct]==`funct_srlv|
-										 IR_E[`funct]==`funct_srav|
-										 IR_E[`funct]==`funct_and|
-										 IR_E[`funct]==`funct_or|
-										 IR_E[`funct]==`funct_xor|
-										 IR_E[`funct]==`funct_nor|
-										 IR_E[`funct]==`funct_slt|
-										 IR_E[`funct]==`funct_sltu|
-										 IR_E[`funct]==`funct_mult|
-										 IR_E[`funct]==`funct_multu|
-										 IR_E[`funct]==`funct_div|
-										 IR_E[`funct]==`funct_divu))|IR_E[`op]==`sw|IR_E[`op]==`sb|IR_E[`op]==`sh;
+                                         IR_E[`funct]==`funct_sub|
+                                         IR_E[`funct]==`funct_subu|
+                                         IR_E[`funct]==`funct_sll|
+                                         IR_E[`funct]==`funct_srl|
+                                         IR_E[`funct]==`funct_sra|
+                                         IR_E[`funct]==`funct_sllv|
+                                         IR_E[`funct]==`funct_srlv|
+                                         IR_E[`funct]==`funct_srav|
+                                         IR_E[`funct]==`funct_and|
+                                         IR_E[`funct]==`funct_or|
+                                         IR_E[`funct]==`funct_xor|
+                                         IR_E[`funct]==`funct_nor|
+                                         IR_E[`funct]==`funct_slt|
+                                         IR_E[`funct]==`funct_sltu|
+                                         IR_E[`funct]==`funct_mult|
+                                         IR_E[`funct]==`funct_multu|
+                                         IR_E[`funct]==`funct_div|
+                                         IR_E[`funct]==`funct_divu))|IR_E[`op]==`sw|IR_E[`op]==`sb|IR_E[`op]==`sh;
 assign rt_m=IR_M[`op]==`sw|IR_M[`op]==`sb|IR_M[`op]==`sh;
 //// write 
 wire jal_e;    // write 31 at e by pc8e
@@ -173,98 +173,98 @@ assign jal_m=IR_M[`op]==`jal;
 assign jalr_m=IR_M[`op]==`calr&IR_M[`funct]==`funct_jalr;
 assign w_rd_m=IR_M[`op]==`calr&(IR_M[`funct]==`funct_add|
                                 IR_M[`funct]==`funct_addu|
-										  IR_M[`funct]==`funct_sub|
-										  IR_M[`funct]==`funct_subu|
-										  IR_M[`funct]==`funct_sll|
-										  IR_M[`funct]==`funct_srl|
-										  IR_M[`funct]==`funct_sra|
-										  IR_M[`funct]==`funct_sllv|
-										  IR_M[`funct]==`funct_srlv|
-										  IR_M[`funct]==`funct_srav|
-										  IR_M[`funct]==`funct_and|
-										  IR_M[`funct]==`funct_or|
-										  IR_M[`funct]==`funct_xor|
-										  IR_M[`funct]==`funct_nor|
-										  IR_M[`funct]==`funct_slt|
-										  IR_M[`funct]==`funct_sltu|
-										  IR_M[`funct]==`funct_mfhi|
-										  IR_M[`funct]==`funct_mflo);
+                                          IR_M[`funct]==`funct_sub|
+                                          IR_M[`funct]==`funct_subu|
+                                          IR_M[`funct]==`funct_sll|
+                                          IR_M[`funct]==`funct_srl|
+                                          IR_M[`funct]==`funct_sra|
+                                          IR_M[`funct]==`funct_sllv|
+                                          IR_M[`funct]==`funct_srlv|
+                                          IR_M[`funct]==`funct_srav|
+                                          IR_M[`funct]==`funct_and|
+                                          IR_M[`funct]==`funct_or|
+                                          IR_M[`funct]==`funct_xor|
+                                          IR_M[`funct]==`funct_nor|
+                                          IR_M[`funct]==`funct_slt|
+                                          IR_M[`funct]==`funct_sltu|
+                                          IR_M[`funct]==`funct_mfhi|
+                                          IR_M[`funct]==`funct_mflo);
 assign w_rt_m=IR_M[`op]==`addi|
               IR_M[`op]==`addiu|
-				  IR_M[`op]==`andi|
-				  IR_M[`op]==`ori|
-				  IR_M[`op]==`xori|
-				  IR_M[`op]==`lui|
-				  IR_M[`op]==`slti|
-				  IR_M[`op]==`sltiu;
+                  IR_M[`op]==`andi|
+                  IR_M[`op]==`ori|
+                  IR_M[`op]==`xori|
+                  IR_M[`op]==`lui|
+                  IR_M[`op]==`slti|
+                  IR_M[`op]==`sltiu;
 assign jal_w=IR_W[`op]==`jal;
 assign jalr_w=IR_W[`op]==`calr&IR_W[`funct]==`funct_jalr;
 assign w_rd_w=IR_W[`op]==`calr&(IR_W[`funct]==`funct_add|
                                 IR_W[`funct]==`funct_addu|
-										  IR_W[`funct]==`funct_sub|
-										  IR_W[`funct]==`funct_subu|
-										  IR_W[`funct]==`funct_sll|
-										  IR_W[`funct]==`funct_srl|
-										  IR_W[`funct]==`funct_sra|
-										  IR_W[`funct]==`funct_sllv|
-										  IR_W[`funct]==`funct_srlv|
-										  IR_W[`funct]==`funct_srav|
-										  IR_W[`funct]==`funct_and|
-										  IR_W[`funct]==`funct_or|
-										  IR_W[`funct]==`funct_xor|
-										  IR_W[`funct]==`funct_nor|
-										  IR_W[`funct]==`funct_slt|
-										  IR_W[`funct]==`funct_sltu|
-										  IR_W[`funct]==`funct_mfhi|
-										  IR_W[`funct]==`funct_mflo);
+                                          IR_W[`funct]==`funct_sub|
+                                          IR_W[`funct]==`funct_subu|
+                                          IR_W[`funct]==`funct_sll|
+                                          IR_W[`funct]==`funct_srl|
+                                          IR_W[`funct]==`funct_sra|
+                                          IR_W[`funct]==`funct_sllv|
+                                          IR_W[`funct]==`funct_srlv|
+                                          IR_W[`funct]==`funct_srav|
+                                          IR_W[`funct]==`funct_and|
+                                          IR_W[`funct]==`funct_or|
+                                          IR_W[`funct]==`funct_xor|
+                                          IR_W[`funct]==`funct_nor|
+                                          IR_W[`funct]==`funct_slt|
+                                          IR_W[`funct]==`funct_sltu|
+                                          IR_W[`funct]==`funct_mfhi|
+                                          IR_W[`funct]==`funct_mflo);
 assign w_rt_w=IR_W[`op]==`addi|
               IR_W[`op]==`addiu|
-				  IR_W[`op]==`andi|
-				  IR_W[`op]==`ori|
-				  IR_W[`op]==`xori|
-				  IR_W[`op]==`lui|
-				  IR_W[`op]==`slti|
-				  IR_W[`op]==`sltiu|
-				  IR_W[`op]==`lw|
-				  IR_W[`op]==`lb|
-				  IR_W[`op]==`lh|
-				  IR_W[`op]==`lbu|
-				  IR_W[`op]==`lhu;
+                  IR_W[`op]==`andi|
+                  IR_W[`op]==`ori|
+                  IR_W[`op]==`xori|
+                  IR_W[`op]==`lui|
+                  IR_W[`op]==`slti|
+                  IR_W[`op]==`sltiu|
+                  IR_W[`op]==`lw|
+                  IR_W[`op]==`lb|
+                  IR_W[`op]==`lh|
+                  IR_W[`op]==`lbu|
+                  IR_W[`op]==`lhu;
 assign FW_RSD = rs_d&jal_e&IR_D[`rs]==31?1:
                 rs_d&jalr_e&IR_D[`rs]==IR_E[`rd]?1:
-					 rs_d&jal_m&IR_D[`rs]==31?2:
-					 rs_d&jalr_m&IR_D[`rs]==IR_M[`rd]?2:
-					 rs_d&w_rd_m&IR_D[`rs]==IR_M[`rd]?3:
-					 rs_d&w_rt_m&IR_D[`rs]==IR_M[`rt]?3:0;
+                     rs_d&jal_m&IR_D[`rs]==31?2:
+                     rs_d&jalr_m&IR_D[`rs]==IR_M[`rd]?2:
+                     rs_d&w_rd_m&IR_D[`rs]==IR_M[`rd]?3:
+                     rs_d&w_rt_m&IR_D[`rs]==IR_M[`rt]?3:0;
 //////////0:read1; 1:PC8_E; 2:PC8_M; 3:AO_M
 assign FW_RTD = rt_d&jal_e&IR_D[`rt]==31?1:
                 rt_d&jalr_e&IR_D[`rt]==IR_E[`rd]?1:
-					 rt_d&jal_m&IR_D[`rt]==31?2:
-					 rt_d&jalr_m&IR_D[`rt]==IR_M[`rd]?2:
-					 rt_d&w_rd_m&IR_D[`rt]==IR_M[`rd]?3:
-					 rt_d&w_rt_m&IR_D[`rt]==IR_M[`rt]?3:0;
+                     rt_d&jal_m&IR_D[`rt]==31?2:
+                     rt_d&jalr_m&IR_D[`rt]==IR_M[`rd]?2:
+                     rt_d&w_rd_m&IR_D[`rt]==IR_M[`rd]?3:
+                     rt_d&w_rt_m&IR_D[`rt]==IR_M[`rt]?3:0;
 //////////0:read2; 1:PC8_E; 2:PC8_M; 3:AO_M					 
 assign FW_RSE = rs_e&jal_m&IR_E[`rs]==31?1:
                 rs_e&jalr_m&IR_E[`rs]==IR_M[`rd]?1:
-					 rs_e&w_rd_m&IR_E[`rs]==IR_M[`rd]?2:
-					 rs_e&w_rt_m&IR_E[`rs]==IR_M[`rt]?2:
-					 rs_e&jal_w&IR_E[`rs]==31?3:
+                     rs_e&w_rd_m&IR_E[`rs]==IR_M[`rd]?2:
+                     rs_e&w_rt_m&IR_E[`rs]==IR_M[`rt]?2:
+                     rs_e&jal_w&IR_E[`rs]==31?3:
                 rs_e&jalr_w&IR_E[`rs]==IR_W[`rd]?3:
-					 rs_e&w_rd_w&IR_E[`rs]==IR_W[`rd]?4:
-					 rs_e&w_rt_w&IR_E[`rs]==IR_W[`rt]?4:0;
+                     rs_e&w_rd_w&IR_E[`rs]==IR_W[`rd]?4:
+                     rs_e&w_rt_w&IR_E[`rs]==IR_W[`rt]?4:0;
 //////////0:RS_E; 1:PC8_E; 2:AO_M; 3:PC8_W; 4:MUX_RF_WD					 
 assign FW_RTE = rt_e&jal_m&IR_E[`rt]==31?1:
                 rt_e&jalr_m&IR_E[`rt]==IR_M[`rd]?1:
-					 rt_e&w_rd_m&IR_E[`rt]==IR_M[`rd]?2:
-					 rt_e&w_rt_m&IR_E[`rt]==IR_M[`rt]?2:
-					 rt_e&jal_w&IR_E[`rt]==31?3:
+                     rt_e&w_rd_m&IR_E[`rt]==IR_M[`rd]?2:
+                     rt_e&w_rt_m&IR_E[`rt]==IR_M[`rt]?2:
+                     rt_e&jal_w&IR_E[`rt]==31?3:
                 rt_e&jalr_w&IR_E[`rt]==IR_W[`rd]?3:
-					 rt_e&w_rd_w&IR_E[`rt]==IR_W[`rd]?4:
-					 rt_e&w_rt_w&IR_E[`rt]==IR_W[`rt]?4:0;
+                     rt_e&w_rd_w&IR_E[`rt]==IR_W[`rd]?4:
+                     rt_e&w_rt_w&IR_E[`rt]==IR_W[`rt]?4:0;
 //////////0:RT_E; 1:PC8_E; 2:AO_M; 3:PC8_W; 4:MUX_RF_WD					 
 assign FW_RTM = rt_m&jal_w&IR_M[`rt]==31?1:
                 rt_m&jalr_w&IR_M[`rt]==IR_W[`rd]?1:
-					 rt_m&w_rd_w&IR_M[`rt]==IR_W[`rd]?2:
-					 rt_m&w_rt_w&IR_M[`rt]==IR_W[`rt]?2:0;
+                     rt_m&w_rd_w&IR_M[`rt]==IR_W[`rd]?2:
+                     rt_m&w_rt_w&IR_M[`rt]==IR_W[`rt]?2:0;
 //////////0:RT_M; 1:PC8_W; 2:MUX_RF_WD
 endmodule

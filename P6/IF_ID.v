@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module IF_ID(
     input clk,
-	 input reset,
+     input reset,
     input EN,
     input [31:0] INSTR,
     input [31:0] PC4,
@@ -31,17 +31,17 @@ reg [31:0] ir;
 reg [31:0] pc4;
 initial begin
     ir<=0;
-	 pc4<=0;
+     pc4<=0;
 end
 always @(posedge clk)begin
     if(reset) begin
-	     ir<=0;
-	     pc4<=0;
-	 end
-	 else if(EN) begin
-	     ir<=INSTR;
-		  pc4<= PC4;
-	 end
+         ir<=0;
+         pc4<=0;
+     end
+     else if(EN) begin
+         ir<=INSTR;
+          pc4<= PC4;
+     end
 end
 assign IR_D = ir;
 assign PC4_D = pc4;

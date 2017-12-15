@@ -21,10 +21,10 @@
 module DM(
     input [31:0] MemAddr,
     input [31:0] MemData,
-	 input [31:0] IR_M,
+     input [31:0] IR_M,
     input MemWrite,
-	 input Clk,
-	 input Reset,
+     input Clk,
+     input Reset,
     output [31:0] Data
     );
 reg[31:0] mem[2047:0];
@@ -48,48 +48,48 @@ assign sh = IR_M[31:26]==6'b101001;
 assign sw = IR_M[31:26]==6'b101011;
 //
 initial begin
-	 for(i=0;i<2048;i=i+1)
-		  mem[i]<=0;
+     for(i=0;i<2048;i=i+1)
+          mem[i]<=0;
 end
 always @(posedge Clk) begin
     if(Reset)begin
-	     for(i=0;i<2048;i=i+1)
-		      mem[i]<=0;
-	 end
-	 else if(MemWrite)begin
-	     if(sw)begin
-	         mem[MemAddr[12:2]]<=MemData;
-		      $display("*%h <= %h",MemAddr,MemData);
-		  end
-		  else if(sh)begin
-		      if(MemAddr[1])begin
-				    mem[MemAddr[12:2]][31:16]<=MemData[15:0];
-					 $display("*%h <= %h",MemAddr,MemData[15:0]);
-				end
-				else begin
-				    mem[MemAddr[12:2]][15:0]<=MemData[15:0];
-					 $display("*%h <= %h",MemAddr,MemData[15:0]);
-				end
-		  end
-		  else if(sb)begin
-		      if(MemAddr[1:0]==0)begin
-				    mem[MemAddr[12:2]][7:0]<=MemData[7:0];
-					 $display("*%h <= %h",MemAddr,MemData[7:0]);
-				end
-				else if(MemAddr[1:0]==1)begin
-				    mem[MemAddr[12:2]][15:8]<=MemData[7:0];
-					 $display("*%h <= %h",MemAddr,MemData[7:0]);				    
-				end
-				else if(MemAddr[1:0]==2)begin
-				    mem[MemAddr[12:2]][23:16]<=MemData[7:0];
-					 $display("*%h <= %h",MemAddr,MemData[7:0]);				    
-				end
-				else if(MemAddr[1:0]==3)begin
-				    mem[MemAddr[12:2]][31:24]<=MemData[7:0];
-					 $display("*%h <= %h",MemAddr,MemData[7:0]);				    
-				end
-		  end
-	 end
+         for(i=0;i<2048;i=i+1)
+              mem[i]<=0;
+     end
+     else if(MemWrite)begin
+         if(sw)begin
+             mem[MemAddr[12:2]]<=MemData;
+              $display("*%h <= %h",MemAddr,MemData);
+          end
+          else if(sh)begin
+              if(MemAddr[1])begin
+                    mem[MemAddr[12:2]][31:16]<=MemData[15:0];
+                     $display("*%h <= %h",MemAddr,MemData[15:0]);
+                end
+                else begin
+                    mem[MemAddr[12:2]][15:0]<=MemData[15:0];
+                     $display("*%h <= %h",MemAddr,MemData[15:0]);
+                end
+          end
+          else if(sb)begin
+              if(MemAddr[1:0]==0)begin
+                    mem[MemAddr[12:2]][7:0]<=MemData[7:0];
+                     $display("*%h <= %h",MemAddr,MemData[7:0]);
+                end
+                else if(MemAddr[1:0]==1)begin
+                    mem[MemAddr[12:2]][15:8]<=MemData[7:0];
+                     $display("*%h <= %h",MemAddr,MemData[7:0]);				    
+                end
+                else if(MemAddr[1:0]==2)begin
+                    mem[MemAddr[12:2]][23:16]<=MemData[7:0];
+                     $display("*%h <= %h",MemAddr,MemData[7:0]);				    
+                end
+                else if(MemAddr[1:0]==3)begin
+                    mem[MemAddr[12:2]][31:24]<=MemData[7:0];
+                     $display("*%h <= %h",MemAddr,MemData[7:0]);				    
+                end
+          end
+     end
 end
 wire [7:0]byte0;
 wire [7:0]byte1;
@@ -101,13 +101,13 @@ assign byte2=mem[MemAddr[12:2]][23:16];
 assign byte3=mem[MemAddr[12:2]][31:24];
 assign Data= lb==1? (MemAddr[1:0]==0?(byte0[7]==1?{24'hffffff,byte0}:{24'h000000,byte0}):
                      MemAddr[1:0]==1?(byte1[7]==1?{24'hffffff,byte1}:{24'h000000,byte1}):
-							MemAddr[1:0]==2?(byte2[7]==1?{24'hffffff,byte2}:{24'h000000,byte2}):
-							MemAddr[1:0]==3?(byte3[7]==1?{24'hffffff,byte3}:{24'h000000,byte3}):0):
-				 lbu==1?(MemAddr[1:0]==0?{24'h000000,byte0}:
+                            MemAddr[1:0]==2?(byte2[7]==1?{24'hffffff,byte2}:{24'h000000,byte2}):
+                            MemAddr[1:0]==3?(byte3[7]==1?{24'hffffff,byte3}:{24'h000000,byte3}):0):
+                 lbu==1?(MemAddr[1:0]==0?{24'h000000,byte0}:
                      MemAddr[1:0]==1?{24'h000000,byte1}:
-							MemAddr[1:0]==2?{24'h000000,byte2}:
-							MemAddr[1:0]==3?{24'h000000,byte3}:0):
-				 lh==1?(MemAddr[1]==0?(byte1[7]==1?{16'hffff,byte1,byte0}:{16'h0000,byte1,byte0}):
-				        (byte3[7]==1?{16'hffff,byte3,byte2}:{16'h0000,byte3,byte2})):
-				 lhu==1?(MemAddr[1]==0?{16'h0000,byte1,byte0}:{16'h0000,byte3,byte2}):mem[MemAddr[12:2]];
+                            MemAddr[1:0]==2?{24'h000000,byte2}:
+                            MemAddr[1:0]==3?{24'h000000,byte3}:0):
+                 lh==1?(MemAddr[1]==0?(byte1[7]==1?{16'hffff,byte1,byte0}:{16'h0000,byte1,byte0}):
+                        (byte3[7]==1?{16'hffff,byte3,byte2}:{16'h0000,byte3,byte2})):
+                 lhu==1?(MemAddr[1]==0?{16'h0000,byte1,byte0}:{16'h0000,byte3,byte2}):mem[MemAddr[12:2]];
 endmodule

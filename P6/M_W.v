@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module M_W(
     input clk,
-	 input reset,
+     input reset,
     input [31:0] IR_M,
     input [31:0] PC4_M,
     input [31:0] AO_M,
@@ -37,23 +37,23 @@ reg [31:0]dm;
 reg rw;
 initial begin
     ir<=0;
-	 pc4<=0;
-	 ao<=0;
-	 dm<=0;
+     pc4<=0;
+     ao<=0;
+     dm<=0;
 end
 always @(posedge clk)begin
     if(reset)begin
-	     ir<=0;
-	     pc4<=0;
-	     ao<=0;
-	     dm<=0; 	  
+         ir<=0;
+         pc4<=0;
+         ao<=0;
+         dm<=0; 	  
     end
     else begin
         ir<= IR_M;
-	     pc4<= PC4_M;
-	     ao<= AO_M;
-	     dm<= DM;
-	 end
+         pc4<= PC4_M;
+         ao<= AO_M;
+         dm<= DM;
+     end
 end
 assign IR_W = ir;
 assign PC4_W = pc4;

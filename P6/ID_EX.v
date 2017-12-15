@@ -30,7 +30,7 @@ module ID_EX(
     output [31:0] RT_E,
     output [31:0] EXT_E,
     input clk,
-	 input reset,
+     input reset,
     input clr
     );
 reg [31:0] ir;
@@ -40,26 +40,26 @@ reg [31:0] rt;
 reg [31:0] ext;
 initial begin
     ir<=0;
-	 pc4<=0;
-	 rs<=0;
-	 rt<=0;
-	 ext<=0;
+     pc4<=0;
+     rs<=0;
+     rt<=0;
+     ext<=0;
 end
 always @(posedge clk)begin
     if(clr|reset) begin
-	     ir<=0;
-	     pc4<=0;
-	     rs<=0;
-	     rt<=0;
-	     ext<=0;
-	 end
-	 else begin
-	     ir<=IR_D;
-		  pc4<=PC4_D;
-		  rs<=READ1;
-		  rt<=READ2;
-		  ext<=EXT;
-	 end
+         ir<=0;
+         pc4<=0;
+         rs<=0;
+         rt<=0;
+         ext<=0;
+     end
+     else begin
+         ir<=IR_D;
+          pc4<=PC4_D;
+          rs<=READ1;
+          rt<=READ2;
+          ext<=EXT;
+     end
 end
 assign IR_E=ir;
 assign PC4_E=pc4;
